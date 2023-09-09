@@ -12,16 +12,6 @@
       "level": "DEBUG",
       "formatter": "simple",
       "class": "logging.StreamHandler"
-    },
-    "file": {
-      "level": "INFO",
-      "formatter": "simple",
-      "class": "logging.handlers.TimedRotatingFileHandler",
-      "filename": "./logs.log",
-      "when": "d",
-      "interval": 30,
-      "backupCount": 4,
-      "utc": true
     }
   },
   "loggers": {
@@ -30,14 +20,6 @@
         "console"
       ],
       "level": "DEBUG"
-    },
-    "bot": {
-      "handlers": [
-        "console",
-        "file"
-      ],
-      "level": "DEBUG",
-      "propagate": 0
     }
   }
 }

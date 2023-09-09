@@ -1,6 +1,6 @@
 from datetime import datetime
 import requests
-import xlwings as xw
+from openpyxl import load_workbook
 import logging
 
 
@@ -20,38 +20,40 @@ month_name = {
 }
 
 
-def process_sheet(source, dt):
+def processed_sheet(source):
+    dt = {}
+
     row = 2
     try:
-        while source.range(f'A{row}').value is not None:
-            username = source.range(f'A{row}').value
-            name = source.range(f'D{row}').value
-            company = source.range(f'F{row}').value
+        while source[f'A{row}'].value is not None:
+            username = source[f'A{row}'].value
+            name = source[f'D{row}'].value
+            company = source[f'F{row}'].value
 
-            end_date = source.range(f'G{row}').value
+            end_date = source[f'G{row}'].value
             day = end_date.day
             month = month_name[end_date.month]
 
-            link = source.range(f'H{row}').value
+            link = source[f'H{row}'].value
 
-            price = source.range(f'I{row}').value
+            price = source[f'I{row}'].value
             try:
                 price = round(int(price), 2)
             except Exception:
                 pass
 
-            task = source.range(f'O{row}').value
+            task = source[f'O{row}'].value
 
             dead_day = 'day'
             dead_month = 'month'
             try:
-                deadline = datetime.strptime(source.range(f'P{row}').value, '%Y-%d-%m %H:%M:%S')
+                deadline = datetime.strptime(source[f'P{row}'].value, '%Y-%d-%m %H:%M:%S')
                 dead_day = deadline.day
                 dead_month = month_name[deadline.month]
             except TypeError:
                 pass
 
-            status = source.range(f'Q{row}').value
+            status = source[f'Q{row}'].value
 
             temp = {
                     'name': name,
@@ -74,17 +76,19 @@ def process_sheet(source, dt):
         logging.error(f'While processing the Excel sheet an error occured\nInfo: {e}')
 
     logging.info('Data was successfully loaded from Excel sheet')
+    return dt
 
 
 def get_data():
-    data = {}
-
     download_file()
     try:
-        book = xw.Book('table.xlsx')
-        sheet = book.sheets['Продления']
-        process_sheet(sheet, data)
-        return data
+        book = load_workbook('table.xlsx')
+        sheet = book.get_sheet_by_name('Продления')
+
+        # book = xw.Book('table.xlsx')
+        # sheet = book.sheets['Продления']
+
+        return processed_sheet(sheet)
 
     except FileNotFoundError:
         logging.error('File table.xlsx not found')
