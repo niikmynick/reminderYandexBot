@@ -178,6 +178,9 @@ async def send_notification(require):
 
 
 async def send_report(username):
+    global data
+    data = get_data()
+
     answer_text = f'{hbold("Отчет по менеджерам:")}\n'
 
     i = 1
