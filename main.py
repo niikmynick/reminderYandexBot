@@ -27,10 +27,7 @@ class TextFilter(Filter):
 
 data = {}
 users = {}
-admins = {
-    'niikmynick': 'Никита',
-    'etfrsu': 'Егор',
-}
+admins = {}
 
 
 bot = Bot(BOT_TOKEN, parse_mode=ParseMode.HTML)
