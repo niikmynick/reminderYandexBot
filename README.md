@@ -18,4 +18,4 @@ The bot operates in two modes:
 
 Additionally, the bot sends a report to the head of the team, providing information about each team member's progress. The report includes the total number of tasks currently in progress, completed tasks, and tasks that are yet to be completed. This notification is scheduled to be sent on the last day of the week at 19:00.
 
-If a user's Telegram username does not match any entry in the spreadsheet, the bot responds with a message indicating that the feature is not available.
+If user's Telegram username does not match any entry in the spreadsheet, the bot responds with a message indicating that the feature is not available.
