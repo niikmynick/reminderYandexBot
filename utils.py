@@ -99,7 +99,7 @@ def user_access(username, data):
 
 
 def download_file():
-    url = "https://docs.google.com/spreadsheets/d/16aS9irTy-AdcHf_FeWHd2GsL_9hXh1T_lhJGst3V-Is/export?format=xlsx"
+    url = "<path to google sheets>"
     filename = "table.xlsx"
 
     response = requests.get(url)
